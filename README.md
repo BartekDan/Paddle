@@ -29,4 +29,5 @@ python3 tools/train.py -c configs/rec/my_rec_train.yml
 ```
 
 The config expects images referenced in `train_labels.txt` to be relative to the
-`My data` directory.
+`My data` directory. For evaluation, it uses `eval_labels.txt` from the same
+directory as the validation split.
