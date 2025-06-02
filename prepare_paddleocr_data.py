@@ -1,10 +1,19 @@
 import csv
+import unicodedata
 from pathlib import Path
 
 # Paths
 csv_path = Path('My data/PL-20k-hand-labelled_labels.csv')
 label_txt_path = Path('My data/train_labels.txt')
 dict_path = Path('My data/dict.txt')
+
+# Ensure filenames on disk use a consistent normalization form (NFC)
+for p in csv_path.parent.iterdir():
+    if not p.is_file():
+        continue
+    norm_name = unicodedata.normalize('NFC', p.name)
+    if norm_name != p.name:
+        p.rename(p.with_name(norm_name))
 
 unique_chars = set()
 
@@ -16,7 +25,7 @@ with csv_path.open(newline='', encoding='utf-8') as csvfile, \
             continue
         if len(row) < 2:
             continue
-        img_path = row[0].strip()
+        img_path = unicodedata.normalize('NFC', row[0].strip())
         label = row[1].strip()
         outfile.write(f"{img_path}\t{label}\n")
         for ch in label:

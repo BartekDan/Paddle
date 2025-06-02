@@ -18,6 +18,9 @@ in the same directory:
 - `train_labels.txt` – each line has `image_path\tlabel`
 - `dict.txt` – one unique character per line
 
+The script also normalizes all filenames and CSV entries to Unicode NFC form so
+that paths in `train_labels.txt` match the actual files on disk.
+
 ## Training
 
 A training configuration is provided at
