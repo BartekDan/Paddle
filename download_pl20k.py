@@ -77,16 +77,19 @@ def verify_files(csv_path: Path, data_dir: Path):
 def main():
     tar_path = DATA_DIR / 'PL-20k-hand-labelled.tar.gz'
     csv_path = DATA_DIR / 'PL-20k-hand-labelled_labels.csv'
-    extract_dir = DATA_DIR / 'PL-20k-hand-labelled'
+    # Extract the tarball directly under DATA_DIR. The archive itself already
+    # contains the top-level ``PL-20k-hand-labelled`` directory, so extracting
+    # into DATA_DIR avoids creating an extra nested folder.
+    extract_root = DATA_DIR
 
     download(TAR_URL, tar_path)
     download(CSV_URL, csv_path)
 
     inspect_tar_names(tar_path)
-    extract_tar(tar_path, extract_dir)
+    extract_tar(tar_path, extract_root)
 
     ensure_csv_utf8(csv_path)
-    verify_files(csv_path, extract_dir)
+    verify_files(csv_path, extract_root / 'PL-20k-hand-labelled')
 
 if __name__ == '__main__':
     main()
