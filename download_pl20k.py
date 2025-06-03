@@ -28,6 +28,12 @@ def extract_tar(tar_path: Path, out_dir: Path):
     with tarfile.open(tar_path, mode='r:gz', encoding='utf-8', errors='surrogateescape') as tar:
         tar.extractall(path=out_dir)
 
+    # Normalize extracted filenames to NFC so that they match CSV entries
+    for path in sorted(out_dir.rglob('*'), key=lambda p: len(str(p)), reverse=True):
+        new_name = unicodedata.normalize('NFC', path.name)
+        if new_name != path.name:
+            path.rename(path.with_name(new_name))
+
 # Simple encoding detection for the CSV
 
 def read_csv_guess(path: Path):

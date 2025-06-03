@@ -3,6 +3,16 @@
 This repository contains a minimal example showing how to train a PaddleOCR
 recognition model on a custom dataset stored under `My data/`.
 
+Run `download_pl20k.py` to download the sample dataset and normalize all
+filenames to UTF-8 so they match the accompanying CSV labels:
+
+```bash
+python3 download_pl20k.py
+```
+
+The script extracts `PL-20k-hand-labelled.tar.gz` and converts any decomposed
+Unicode sequences in file paths to their canonical NFC form.
+
 ## Preparing the Dataset
 
 Run `prepare_paddleocr_data.py` to convert the CSV labels into the format
