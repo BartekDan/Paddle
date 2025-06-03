@@ -10,7 +10,8 @@ filenames to UTF-8 so they match the accompanying CSV labels:
 python3 download_pl20k.py
 ```
 
-The script extracts `PL-20k-hand-labelled.tar.gz` and converts any decomposed
+The script extracts `PL-20k-hand-labelled.tar.gz` into the `My data/` directory
+(creating the `PL-20k-hand-labelled/` folder) and converts any decomposed
 Unicode sequences in file paths to their canonical NFC form.
 
 ## Preparing the Dataset
